@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Admin login{% endblock %}
+{% block content %}
+<section class="max-w-sm mx-auto px-4 pt-20">
+ <h1 class="font-display font-extrabold text-2xl">Admin login</h1>
+ <form method="post" class="mt-6 space-y-4">
+  <input type="hidden" name="csrf" value="{{ csrf_token() }}">
+  <div><label class="font-bold text-sm" for="u">Username</label><input id="u" name="username" required autofocus class="mt-1 w-full border-2 border-ink/20 rounded-md p-2.5"></div>
+  <div><label class="font-bold text-sm" for="pw">Password</label><input id="pw" name="password" type="password" required class="mt-1 w-full border-2 border-ink/20 rounded-md p-2.5"></div>
+  <button class="w-full bg-ink text-white font-bold py-3 rounded-md">Log in</button>
+ </form>
+</section>
+{% endblock %}

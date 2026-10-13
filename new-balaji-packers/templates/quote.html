@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Book Relocation Order | {{ BUSINESS_NAME }}{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <!-- Page Header -->
+        <div class="text-center mb-5" style="max-width: 700px; margin: auto;">
+            <span class="badge bg-warning text-dark fw-bold text-uppercase px-3 py-1 mb-2">
+                Fast &amp; Hassle-Free Booking
+            </span>
+            <h1 class="display-6 fw-bold text-dark">Book Your Relocation Order</h1>
+            <p class="text-muted">
+                Complete the details below to schedule your shifting. Mr. Kumar or our local branch manager will verify details and confirm timings.
+            </p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            <!-- Main Form Card -->
+            <div class="col-lg-8">
+                <div class="card card-premium p-4 p-md-5 shadow-sm">
+                    <form method="POST" action="{% url 'quote' %}" novalidate>
+                        {% csrf_token %}
+
+                        <!-- Global Form Errors -->
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger shadow-sm" role="alert">
+                            {% for error in form.non_field_errors %}
+                            <div><i class="bi bi-exclamation-triangle-fill me-1"></i> {{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <!-- Section 1: Customer Contact Details -->
+                        <div class="mb-4">
+                            <h2 class="h5 fw-bold text-dark mb-3 pb-2 border-bottom">
+                                <i class="bi bi-person-circle text-warning me-2"></i> 1. Your Contact Details
+                            </h2>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-secondary">
+                                        Your Full Name <span class="text-danger">*</span>
+                                    </label>
+                                    {{ form.customer_name }}
+                                    {% if form.customer_name.errors %}
+                                    <div class="text-danger small mt-1">{{ form.customer_name.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-secondary">
+                                        Mobile Phone Number <span class="text-danger">*</span>
+                                    </label>
+                                    {{ form.phone }}
+                                    {% if form.phone.errors %}
+                                    <div class="text-danger small mt-1">{{ form.phone.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-bold small text-secondary">
+                                        Email Address (For GST Quote &amp; Digital Invoice)
+                                    </label>
+                                    {{ form.email }}
+                                    {% if form.email.errors %}
+                                    <div class="text-danger small mt-1">{{ form.email.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section 2: Relocation Route & Schedule -->
+                        <div class="mb-4">
+                            <h2 class="h5 fw-bold text-dark mb-3 pb-2 border-bottom">
+                                <i class="bi bi-geo-alt-fill text-warning me-2"></i> 2. Relocation Route &amp; Date
+                            </h2>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-secondary">
+                                        Moving From (Origin / Pickup City) <span class="text-danger">*</span>
+                                    </label>
+                                    {{ form.pickup_city }}
+                                    {% if form.pickup_city.errors %}
+                                    <div class="text-danger small mt-1">{{ form.pickup_city.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-secondary">
+                                        Moving To (Destination / Drop City) <span class="text-danger">*</span>
+                                    </label>
+                                    {{ form.drop_city }}
+                                    {% if form.drop_city.errors %}
+                                    <div class="text-danger small mt-1">{{ form.drop_city.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-secondary">
+                                        Preferred Moving Date <span class="text-danger">*</span>
+                                    </label>
+                                    {{ form.move_date }}
+                                    {% if form.move_date.errors %}
+                                    <div class="text-danger small mt-1">{{ form.move_date.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-secondary">
+                                        Type of Relocation <span class="text-danger">*</span>
+                                    </label>
+                                    {{ form.move_type }}
+                                    {% if form.move_type.errors %}
+                                    <div class="text-danger small mt-1">{{ form.move_type.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section 3: Standard Items Checklist -->
+                        <div class="mb-4">
+                            <h2 class="h5 fw-bold text-dark mb-2 pb-2 border-bottom">
+                                <i class="bi bi-check2-square text-warning me-2"></i> 3. Select Standard Items to Move
+                            </h2>
+                            <p class="text-muted small mb-3">Check all major furniture, electronics, and household goods you are shifting:</p>
+                            
+                            <div class="row g-2">
+                                {% for choice in form.items_checklist %}
+                                <div class="col-6 col-md-4">
+                                    <div class="p-2 border rounded bg-white small h-100 d-flex align-items-center">
+                                        {{ choice.tag }}
+                                        <label class="form-check-label ms-2 cursor-pointer w-100" for="{{ choice.id_for_label }}">
+                                            {{ choice.choice_label }}
+                                        </label>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- Section 4: CUSTOM ITEM INPUT (Mandatory Requirement) -->
+                        <div class="mb-4">
+                            <h2 class="h5 fw-bold text-dark mb-2 pb-2 border-bottom">
+                                <i class="bi bi-pencil-square text-warning me-2"></i> 4. Custom &amp; Extra Item Input
+                            </h2>
+                            <div class="custom-item-container">
+                                <label class="form-label fw-bold text-dark">
+                                    Custom Items / Heavy Equipment / Fragile Articles
+                                </label>
+                                <p class="text-muted small mb-2">
+                                    Have items not in the list above? Enter them here (e.g., Marble dining table, 75" TV, Piano, Treadmill, Garden planters, Pooja altar, Safe/Locker, Fragile Glassware).
+                                </p>
+                                {{ form.custom_items }}
+                                {% if form.custom_items.errors %}
+                                <div class="text-danger small mt-1">{{ form.custom_items.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Section 5: Packing Quality & Floor Info -->
+                        <div class="mb-4">
+                            <h2 class="h5 fw-bold text-dark mb-3 pb-2 border-bottom">
+                                <i class="bi bi-box-seam text-warning me-2"></i> 5. Packing Tier &amp; Floor Access
+                            </h2>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-secondary">
+                                        Packing Material Quality
+                                    </label>
+                                    {{ form.packing_tier }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-secondary">
+                                        Floor &amp; Elevator Info
+                                    </label>
+                                    {{ form.floor_details }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-secondary">
+                                        Calculated Price Estimate (₹)
+                                    </label>
+                                    {{ form.estimated_price }}
+                                    <div class="form-text small">Pre-filled from Interactive Calculator or estimated on review.</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-secondary">
+                                        Special Instructions / Lift Access / GST Request
+                                    </label>
+                                    {{ form.notes }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Order Button -->
+                        <div class="text-center pt-3 border-top">
+                            <button type="submit" class="btn btn-balaji-amber btn-lg px-5 py-3 rounded-pill fw-bold shadow-lg w-100">
+                                <i class="bi bi-check-circle-fill me-2"></i> Confirm &amp; Submit Relocation Order
+                            </button>
+                            <p class="text-muted small mt-2 mb-0">
+                                <i class="bi bi-shield-check text-success me-1"></i> No upfront payment required to book. Verified by Mr. Kumar.
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Right: Trust & Branch Details Sidebar -->
+            <div class="col-lg-4">
+                <!-- Head Office Card -->
+                <div class="card card-premium p-4 mb-4 border-warning shadow-sm">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <span class="badge bg-warning text-dark fw-bold px-2 py-1">MAIN BRANCH</span>
+                        <h3 class="h6 fw-bold mb-0 text-dark">Head Office: Vuyyuru</h3>
+                    </div>
+                    <p class="small text-secondary mb-2">
+                        Thotlavallaru Road, Sai Baba Temple Back Side, Vuyyuru
+                    </p>
+                    <a href="tel:9014331173" class="btn btn-outline-dark btn-sm rounded-pill w-100 fw-bold">
+                        <i class="bi bi-telephone-fill text-warning me-1"></i> Call 9014331173
+                    </a>
+                </div>
+
+                <!-- Vijayawada & Machilipatnam Branches -->
+                <div class="card card-premium p-4 mb-4 shadow-sm">
+                    <h3 class="h6 fw-bold text-dark mb-3 pb-1 border-bottom">Other Active Hubs</h3>
+                    
+                    <div class="mb-3">
+                        <strong class="text-dark small d-block">📍 Vijayawada Branch:</strong>
+                        <span class="text-muted small">Opp. Nagarjuna Hospital, Kanuru, Auto Nagar</span>
+                        <div class="mt-1">
+                            <a href="tel:9803558899" class="text-warning text-decoration-none fw-bold small">📞 9803558899</a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <strong class="text-dark small d-block">📍 Machilipatnam Branch:</strong>
+                        <span class="text-muted small">Housing Board Colony, Bypass Road</span>
+                        <div class="mt-1">
+                            <a href="tel:8099333910" class="text-warning text-decoration-none fw-bold small">📞 8099333910</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- What Happens Next Box -->
+                <div class="card card-navy-dark p-4 shadow-sm">
+                    <h3 class="h6 fw-bold text-warning mb-3">
+                        <i class="bi bi-info-circle-fill me-1"></i> How Shifting Works
+                    </h3>
+                    <ul class="list-unstyled small text-light opacity-90 d-flex flex-column gap-2 mb-0">
+                        <li><i class="bi bi-1-circle text-warning me-2"></i> Submit booking order online.</li>
+                        <li><i class="bi bi-2-circle text-warning me-2"></i> Mr. Kumar calls to confirm date &amp; items.</li>
+                        <li><i class="bi bi-3-circle text-warning me-2"></i> Team arrives with bubble wrap &amp; cartons.</li>
+                        <li><i class="bi bi-4-circle text-warning me-2"></i> Safe transit with GPS updates &amp; unloading.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

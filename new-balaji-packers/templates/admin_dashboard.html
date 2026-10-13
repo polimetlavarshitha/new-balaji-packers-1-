@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Admin dashboard{% endblock %}
+{% block content %}
+<section class="max-w-7xl mx-auto px-4 pt-8">
+ <div class="flex flex-wrap items-center justify-between gap-3">
+  <h1 class="font-display font-extrabold text-3xl">Bookings</h1>
+  <form method="post" action="{{ url_for('logout') }}"><input type="hidden" name="csrf" value="{{ csrf_token() }}"><button class="border-2 border-ink px-4 py-2 rounded-md text-sm font-bold">Log out</button></form>
+ </div>
+ <div class="mt-5 grid grid-cols-2 sm:grid-cols-6 gap-3">
+  {% for s in C.STATUSES %}<a href="?status={{ s }}" class="rounded-lg p-3 {{ 'bg-tape' if status==s else 'bg-mist' }}"><p class="text-2xl font-display font-extrabold">{{ counts.get(s,0) }}</p><p class="text-xs">{{ s }}</p></a>{% endfor %}
+ </div>
+ <form class="mt-5 flex gap-2"><input name="q" value="{{ q }}" placeholder="Search name, phone, city" class="border-2 border-ink/20 rounded-md p-2 flex-1 max-w-sm">
+  {% if status %}<input type="hidden" name="status" value="{{ status }}">{% endif %}
+  <button class="bg-ink text-white px-4 rounded-md">Search</button><a href="{{ url_for('admin') }}" class="px-3 py-2 text-sm underline">Clear</a></form>
+ <div class="mt-4 overflow-x-auto border-2 border-ink/10 rounded-xl">
+  <table class="w-full text-sm text-left">
+   <thead class="bg-mist"><tr><th class="p-3">#</th><th class="p-3">Customer</th><th class="p-3">Route</th><th class="p-3">Date / type</th><th class="p-3">Items &amp; notes</th><th class="p-3">Status</th><th class="p-3"></th></tr></thead>
+   <tbody>{% for r in rows %}
+    <tr class="border-t align-top">
+     <td class="p-3">{{ r.id }}<br><span class="text-xs text-slate-500">{{ r.created_at[:16] }}</span></td>
+     <td class="p-3"><b>{{ r.name }}</b><br><a class="underline" href="tel:{{ r.phone }}">{{ r.phone }}</a>{% if r.email %}<br>{{ r.email }}{% endif %}</td>
+     <td class="p-3">{{ r.source }} → {{ r.destination }}</td>
+     <td class="p-3">{{ r.move_date }}<br>{{ r.move_type }}</td>
+     <td class="p-3 max-w-xs">{{ r['items'] }}{% if r.notes %}<br><i>{{ r.notes }}</i>{% endif %}</td>
+     <td class="p-3"><form method="post" action="{{ url_for('set_status', bid=r.id) }}"><input type="hidden" name="csrf" value="{{ csrf_token() }}">
+       <select name="status" onchange="this.form.submit()" class="border rounded p-1">{% for s in C.STATUSES %}<option {{ 'selected' if r.status==s }}>{{ s }}</option>{% endfor %}</select></form></td>
+     <td class="p-3"><form method="post" action="{{ url_for('delete_booking', bid=r.id) }}" onsubmit="return confirm('Delete booking #{{ r.id }}?')"><input type="hidden" name="csrf" value="{{ csrf_token() }}"><button class="text-red-700 underline">Delete</button></form></td>
+    </tr>{% else %}<tr><td colspan="7" class="p-6 text-center text-slate-500">No bookings yet. New quote requests will appear here.</td></tr>{% endfor %}</tbody>
+  </table>
+ </div>
+ <h2 class="font-display font-extrabold text-2xl mt-10">Contact messages</h2>
+ <div class="mt-4 space-y-3">{% for m in msgs %}
+  <div class="border-2 border-ink/10 rounded-lg p-4 flex justify-between gap-4"><div><b>{{ m.name }}</b> · <a class="underline" href="tel:{{ m.phone }}">{{ m.phone }}</a> <span class="text-xs text-slate-500">{{ m.created_at[:16] }}</span><p class="mt-1">{{ m.message }}</p></div>
+   <form method="post" action="{{ url_for('delete_message', mid=m.id) }}"><input type="hidden" name="csrf" value="{{ csrf_token() }}"><button class="text-red-700 underline text-sm">Delete</button></form></div>
+  {% else %}<p class="text-slate-500">No messages yet.</p>{% endfor %}</div>
+</section>
+{% endblock %}

@@ -1,0 +1,580 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ BUSINESS_NAME }} | Head Office Vuyyuru, Vijayawada & Machilipatnam Branches{% endblock %}
+
+{% block content %}
+<!-- =========================================================================
+     Hero Section: Head Office Vuyyuru Spotlight & Direct Quick Actions
+     ========================================================================= -->
+<section class="hero-section">
+    <div class="container py-4">
+        <div class="row align-items-center g-5">
+            <!-- Left Column: Branding, Tagline & CTAs -->
+            <div class="col-lg-7">
+                <div class="d-inline-flex align-items-center gap-2 badge-head-office px-3 py-2 rounded-pill text-uppercase mb-3">
+                    <i class="bi bi-star-fill text-dark"></i>
+                    <span>Head Office / Main Branch: Vuyyuru</span>
+                </div>
+
+                <h1 class="display-5 fw-black text-white lh-sm mb-3">
+                    Moving between <span class="text-warning">Vuyyuru</span>, <span class="text-warning">Vijayawada</span> and <span class="text-warning">Machilipatnam</span>
+                </h1>
+
+                <p class="fs-5 text-warning fw-semibold mb-2">
+                    {{ TAGLINE }}
+                </p>
+
+                <p class="lead text-light opacity-85 mb-4" style="max-width: 600px;">
+                    Safe Packing, Secure Transportation, On Time Delivery for homes and offices. Managed directly by Proprietor <strong>{{ PROPRIETOR }}</strong>.
+                </p>
+
+                <!-- Action Buttons -->
+                <div class="d-flex flex-wrap gap-3 pt-2">
+                    <a href="{% url 'quote' %}" class="btn btn-balaji-amber btn-lg rounded-pill px-4 py-3 shadow">
+                        <i class="bi bi-box-seam me-2"></i> Start Booking Your Order
+                    </a>
+                    <a href="tel:{{ PRIMARY_PHONE }}" class="btn btn-balaji-outline btn-lg rounded-pill px-4 py-3">
+                        <i class="bi bi-telephone-fill me-2"></i> Call {{ PRIMARY_PHONE }}
+                    </a>
+                    <a href="{{ WHATSAPP_LINK }}" target="_blank" rel="noopener noreferrer" class="btn btn-balaji-whatsapp btn-lg rounded-pill px-4 py-3 shadow">
+                        <i class="bi bi-whatsapp me-2"></i> WhatsApp Inquiry
+                    </a>
+                </div>
+
+                <!-- Trust Badges Under Buttons -->
+                <div class="d-flex flex-wrap gap-4 mt-4 pt-3 border-top border-white border-opacity-15 small text-light">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-check-circle-fill text-warning fs-5"></i>
+                        <span>GST Invoicing Available</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-shield-check text-warning fs-5"></i>
+                        <span>Bank Approval Bills</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-clock-history text-warning fs-5"></i>
+                        <span>24/7 Shifting Support</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Official Branch Showcase Card -->
+            <div class="col-lg-5">
+                <div class="card card-premium p-4 shadow-lg border-warning">
+                    <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
+                        <div>
+                            <h3 class="h5 fw-bold mb-0 text-dark">Our Office Locations</h3>
+                            <small class="text-muted">Proprietor: {{ PROPRIETOR }} | All India Service</small>
+                        </div>
+                        <span class="badge bg-dark text-warning px-2 py-1">3 Active Hubs</span>
+                    </div>
+
+                    <!-- Branches List -->
+                    <div class="d-flex flex-column gap-3">
+                        {% for branch in branches %}
+                        <div class="p-3 rounded {% if branch.is_head_office %}bg-warning bg-opacity-10 border border-warning{% else %}bg-light border{% endif %}">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="fw-bold fs-6 text-dark">📍 {{ branch.city }}</span>
+                                {% if branch.is_head_office %}
+                                <span class="badge bg-warning text-dark fw-bold px-2 py-1 small">MAIN HEAD OFFICE</span>
+                                {% else %}
+                                <span class="badge bg-secondary bg-opacity-25 text-dark small">{{ branch.badge_text }}</span>
+                                {% endif %}
+                            </div>
+                            <p class="small text-secondary mb-1">{{ branch.address }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="tel:{{ branch.phone }}" class="text-decoration-none fw-bold text-dark small">
+                                    <i class="bi bi-telephone text-warning me-1"></i> {{ branch.phone }}
+                                </a>
+                                <span class="badge bg-white text-muted border small">{{ branch.service_hours }}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="mt-3 pt-3 border-top d-flex justify-content-between align-items-center small text-muted">
+                        <span><i class="bi bi-shield-lock-fill text-success me-1"></i> Damage Protection</span>
+                        <span><i class="bi bi-truck text-warning me-1"></i> Closed Container Vehicles</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================================
+     Services Section
+     ========================================================================= -->
+<section id="services" class="py-5 bg-white border-bottom">
+    <div class="container py-3">
+        <div class="text-center mb-5" style="max-width: 750px; margin: auto;">
+            <span class="badge bg-warning bg-opacity-25 text-dark fw-bold text-uppercase px-3 py-1 mb-2">
+                Safe &amp; Reliable Services
+            </span>
+            <h2 class="display-6 fw-bold text-dark">What We Move &amp; Relocation Solutions</h2>
+            <p class="text-muted">
+                From single delicate electronics to full household shifting and corporate office moves across Andhra Pradesh and all major Indian cities.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            {% for s in SERVICES_LIST %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-premium h-100 p-4">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div class="service-icon-box">
+                            <span class="fs-2">{{ s.emoji }}</span>
+                        </div>
+                        <span class="badge bg-warning bg-opacity-25 text-dark fw-bold small px-2 py-1">
+                            {{ s.tag }}
+                        </span>
+                    </div>
+                    <h3 class="h5 fw-bold text-dark mb-2">{{ s.title }}</h3>
+                    <p class="text-secondary small mb-3 flex-grow-1">
+                        {{ s.desc }}
+                    </p>
+                    <a href="{% url 'quote' %}?service={{ s.title|urlencode }}" class="text-warning text-decoration-none fw-bold small">
+                        Book This Service <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+
+            <!-- CTA Card in Services Grid -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-navy-dark h-100 p-4 d-flex flex-column justify-content-center text-center shadow">
+                    <div class="mb-3">
+                        <i class="bi bi-question-circle-fill text-warning fs-1"></i>
+                    </div>
+                    <h3 class="h4 fw-bold text-warning mb-2">Need a Custom Shifting Plan?</h3>
+                    <p class="text-light opacity-85 small mb-4">
+                        Speak directly with Mr. Kumar for customized packing, heavy machinery, or vehicle transport schedules.
+                    </p>
+                    <a href="{% url 'quote' %}" class="btn btn-balaji-amber rounded-pill fw-bold">
+                        Request Custom Quotation
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================================
+     JAVASCRIPT FEATURE 1: Interactive Price Calculator
+     ========================================================================= -->
+<section id="calculator" class="py-5 bg-light border-bottom">
+    <div class="container py-3">
+        <div class="row align-items-center mb-4">
+            <div class="col-md-8">
+                <span class="badge bg-warning text-dark fw-bold text-uppercase px-3 py-1 mb-2">
+                    <i class="bi bi-calculator me-1"></i> JavaScript Feature 1
+                </span>
+                <h2 class="display-6 fw-bold text-dark">Interactive Relocation Cost Calculator</h2>
+                <p class="text-muted mb-0">
+                    Get an instant transparent price estimate for shifting between Vuyyuru, Vijayawada, Machilipatnam, or other destinations.
+                </p>
+            </div>
+            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                <span class="badge bg-success bg-opacity-10 text-success border border-success px-3 py-2 fw-semibold">
+                    <i class="bi bi-lightning-charge-fill me-1"></i> Live Instant Calculation
+                </span>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- Left: Inputs & Options -->
+            <div class="col-lg-7">
+                <div class="card card-premium p-4 shadow-sm">
+                    <h3 class="h5 fw-bold text-dark mb-3 pb-2 border-bottom">
+                        1. Route &amp; Home Dimensions
+                    </h3>
+
+                    <!-- Route Selectors -->
+                    <div class="row g-3 mb-3">
+                        <div class="col-sm-6">
+                            <label for="calc-pickup" class="form-label fw-bold small text-secondary">
+                                <i class="bi bi-geo-alt-fill text-warning me-1"></i> Moving From (Pickup City)
+                            </label>
+                            <select id="calc-pickup" class="form-select form-select-lg shadow-sm">
+                                <option value="Vuyyuru" selected>Vuyyuru (Head Office)</option>
+                                <option value="Vijayawada">Vijayawada Branch</option>
+                                <option value="Machilipatnam">Machilipatnam Branch</option>
+                                <option value="Guntur">Guntur</option>
+                                <option value="Hyderabad">Hyderabad</option>
+                                <option value="Other">Other Region</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="calc-drop" class="form-label fw-bold small text-secondary">
+                                <i class="bi bi-geo-alt-fill text-danger me-1"></i> Moving To (Destination City)
+                            </label>
+                            <select id="calc-drop" class="form-select form-select-lg shadow-sm">
+                                <option value="Vijayawada" selected>Vijayawada Branch</option>
+                                <option value="Vuyyuru">Vuyyuru (Head Office)</option>
+                                <option value="Machilipatnam">Machilipatnam Branch</option>
+                                <option value="Guntur">Guntur</option>
+                                <option value="Hyderabad">Hyderabad</option>
+                                <option value="Bangalore">Bangalore</option>
+                                <option value="Chennai">Chennai</option>
+                                <option value="Other">Other Destination</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Move Size & Packing Quality -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-sm-6">
+                            <label for="calc-move-type" class="form-label fw-bold small text-secondary">
+                                Move Size / Relocation Type
+                            </label>
+                            <select id="calc-move-type" class="form-select shadow-sm">
+                                <option value="1bhk">1 RK / 1 BHK Shifting</option>
+                                <option value="2bhk" selected>2 BHK Household Shifting</option>
+                                <option value="3bhk">3 BHK Household Shifting</option>
+                                <option value="villa">4 BHK / Independent Villa</option>
+                                <option value="office">Office &amp; IT Relocation</option>
+                                <option value="vehicle">Vehicle Transport Only</option>
+                                <option value="local">Local Few Items / Room</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="calc-packing-tier" class="form-label fw-bold small text-secondary">
+                                Packing Material Quality
+                            </label>
+                            <select id="calc-packing-tier" class="form-select shadow-sm">
+                                <option value="standard">Standard Cartons &amp; Tape</option>
+                                <option value="premium" selected>Premium Multi-Layer (Bubble Wrap + Foam)</option>
+                                <option value="wooden_crate">Heavy Duty Custom Wooden Crate</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Floor & Elevator Selection -->
+                    <div class="mb-4">
+                        <label for="calc-floor" class="form-label fw-bold small text-secondary">
+                            Floor Level &amp; Elevator Availability
+                        </label>
+                        <select id="calc-floor" class="form-select shadow-sm">
+                            <option value="ground" selected>Ground Floor / Elevator Available at Both Ends</option>
+                            <option value="stairs_low">1st or 2nd Floor (Stair Carry Required)</option>
+                            <option value="stairs_high">3rd Floor or Higher (No Elevator)</option>
+                        </select>
+                    </div>
+
+                    <!-- Items Checklist Add-ons -->
+                    <h3 class="h6 fw-bold text-dark mb-2">
+                        2. Common Items Included (Click to toggle)
+                    </h3>
+                    <div class="row g-2">
+                        <div class="col-6 col-md-4">
+                            <div class="form-check p-0">
+                                <input class="btn-check calc-item-checkbox" type="checkbox" id="item-bed" value="bed" checked>
+                                <label class="btn btn-outline-secondary w-100 text-start small py-2" for="item-bed">
+                                    🛏️ Double Bed
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="form-check p-0">
+                                <input class="btn-check calc-item-checkbox" type="checkbox" id="item-sofa" value="sofa" checked>
+                                <label class="btn btn-outline-secondary w-100 text-start small py-2" for="item-sofa">
+                                    🛋️ Sofa Set
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="form-check p-0">
+                                <input class="btn-check calc-item-checkbox" type="checkbox" id="item-fridge" value="fridge" checked>
+                                <label class="btn btn-outline-secondary w-100 text-start small py-2" for="item-fridge">
+                                    🧊 Refrigerator
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="form-check p-0">
+                                <input class="btn-check calc-item-checkbox" type="checkbox" id="item-washing" value="washing" checked>
+                                <label class="btn btn-outline-secondary w-100 text-start small py-2" for="item-washing">
+                                    🧺 Washing Machine
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="form-check p-0">
+                                <input class="btn-check calc-item-checkbox" type="checkbox" id="item-tv" value="tv" checked>
+                                <label class="btn btn-outline-secondary w-100 text-start small py-2" for="item-tv">
+                                    📺 Smart TV
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="form-check p-0">
+                                <input class="btn-check calc-item-checkbox" type="checkbox" id="item-dining" value="dining">
+                                <label class="btn btn-outline-secondary w-100 text-start small py-2" for="item-dining">
+                                    🍽️ Dining Table
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="form-check p-0">
+                                <input class="btn-check calc-item-checkbox" type="checkbox" id="item-almirah" value="almirah">
+                                <label class="btn btn-outline-secondary w-100 text-start small py-2" for="item-almirah">
+                                    🚪 Wardrobe
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="form-check p-0">
+                                <input class="btn-check calc-item-checkbox" type="checkbox" id="item-ac" value="ac">
+                                <label class="btn btn-outline-secondary w-100 text-start small py-2" for="item-ac">
+                                    ❄️ Split AC
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="form-check p-0">
+                                <input class="btn-check calc-item-checkbox" type="checkbox" id="item-bike" value="bike">
+                                <label class="btn btn-outline-secondary w-100 text-start small py-2" for="item-bike">
+                                    🏍️ Two-Wheeler
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Dynamic Output & Booking CTA -->
+            <div class="col-lg-5">
+                <div class="calc-display-box shadow-lg h-100 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-uppercase tracking-wider small text-warning fw-bold">Estimated Cost</span>
+                            <span id="calc-distance" class="badge bg-secondary bg-opacity-50 text-light">32 km approx</span>
+                        </div>
+
+                        <!-- Big Price Display -->
+                        <div class="calc-price-readout mb-1" id="calc-total-price">
+                            ₹8,500
+                        </div>
+                        <p class="text-light opacity-75 small mb-4">
+                            *Estimated pricing includes freight, bubble wrapping, loading, and unloading.
+                        </p>
+
+                        <!-- Itemized Breakdown -->
+                        <h3 class="h6 fw-bold text-warning mb-2 border-bottom border-warning border-opacity-25 pb-1">
+                            Cost Breakdown
+                        </h3>
+                        <div class="calc-breakdown-row">
+                            <span class="text-light opacity-75">Vehicle &amp; Distance Freight:</span>
+                            <span class="fw-bold text-white" id="calc-transport-cost">₹5,200</span>
+                        </div>
+                        <div class="calc-breakdown-row">
+                            <span class="text-light opacity-75">Multi-Layer Packing Materials:</span>
+                            <span class="fw-bold text-white" id="calc-packing-cost">₹1,800</span>
+                        </div>
+                        <div class="calc-breakdown-row">
+                            <span class="text-light opacity-75">Loading, Labor &amp; Handling:</span>
+                            <span class="fw-bold text-white" id="calc-labor-cost">₹1,500</span>
+                        </div>
+                    </div>
+
+                    <!-- Direct Transfer CTA -->
+                    <div class="mt-4 pt-3 border-top border-secondary border-opacity-50">
+                        <a id="calc-book-btn" href="{% url 'quote' %}?pickup=Vuyyuru&drop=Vijayawada&price=8500" class="btn btn-balaji-amber w-100 py-3 rounded-pill fw-bold fs-6 shadow">
+                            <i class="bi bi-check2-circle me-1"></i> Apply Estimate &amp; Book Order →
+                        </a>
+                        <p class="text-center text-light opacity-75 small mt-2 mb-0">
+                            Zero Advance Required for Online Estimate | Finalized by Mr. Kumar
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================================
+     JAVASCRIPT FEATURE 2: Customer Ratings & Live Star Rating Selector
+     ========================================================================= -->
+<section id="reviews" class="py-5 bg-white border-bottom">
+    <div class="container py-3">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-5 gap-3">
+            <div>
+                <span class="badge bg-warning text-dark fw-bold text-uppercase px-3 py-1 mb-2">
+                    <i class="bi bi-star-fill me-1"></i> JavaScript Feature 2
+                </span>
+                <h2 class="display-6 fw-bold text-dark mb-1">Customer Ratings &amp; Reviews</h2>
+                <p class="text-muted mb-0">Verified customer feedback from Vuyyuru, Vijayawada, Machilipatnam and beyond.</p>
+            </div>
+            <div class="card card-premium px-4 py-2 bg-warning bg-opacity-10 border-warning shadow-sm">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="text-warning fs-3">★★★★★</span>
+                    <div>
+                        <div class="fw-bold text-dark fs-5">{{ avg_rating }} / 5.0</div>
+                        <small class="text-muted">{{ total_reviews_count }}+ Happy Relocations</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- Left: Reviews Live Feed (New submissions dynamically prepend here) -->
+            <div class="col-lg-7">
+                <h3 class="h5 fw-bold text-dark mb-3">Recent Customer Feedback</h3>
+                <div class="row" id="reviews-live-feed">
+                    {% for r in reviews %}
+                    <div class="col-md-6 mb-3">
+                        <div class="card card-premium h-100 p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div class="text-warning fs-5">
+                                    {% if r.rating == 5 %}★★★★★
+                                    {% elif r.rating == 4 %}★★★★☆
+                                    {% elif r.rating == 3 %}★★★☆☆
+                                    {% elif r.rating == 2 %}★★☆☆☆
+                                    {% else %}★☆☆☆☆{% endif %}
+                                </div>
+                                <span class="badge bg-light text-muted border small">{{ r.created_at|date:"M d, Y" }}</span>
+                            </div>
+                            <p class="fst-italic text-secondary small mb-3">
+                                “{{ r.review_text }}”
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                                <span class="fw-bold text-dark small">— {{ r.reviewer_name }}</span>
+                                <span class="badge bg-light text-dark small">📍 {{ r.city }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12">
+                        <p class="text-muted">No reviews submitted yet. Be the first to share your experience!</p>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="text-center mt-3">
+                    <a href="{% url 'reviews' %}" class="btn btn-outline-dark rounded-pill px-4 btn-sm fw-bold">
+                        View All Customer Reviews <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right: Live Star Rating Selector Form (AJAX powered) -->
+            <div class="col-lg-5">
+                <div class="card card-premium p-4 shadow-sm border-warning">
+                    <h3 class="h5 fw-bold text-dark mb-2">Leave a Rating &amp; Review</h3>
+                    <p class="text-muted small mb-3">
+                        Rate our team's shifting performance. Your review will be published instantly.
+                    </p>
+
+                    <!-- Alert message placeholder for AJAX response -->
+                    <div id="review-alert-box"></div>
+
+                    <form id="customer-review-form" action="{% url 'submit_review' %}" method="POST">
+                        {% csrf_token %}
+                        
+                        <!-- Reviewer Name -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-secondary">Your Full Name</label>
+                            {{ review_form.reviewer_name }}
+                        </div>
+
+                        <!-- Branch Location -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-secondary">Service Branch Location</label>
+                            {{ review_form.city }}
+                        </div>
+
+                        <!-- Live Star Rating Selector Component -->
+                        <div class="mb-3 p-3 bg-light rounded border text-center">
+                            <label class="form-label fw-bold text-dark d-block mb-1">
+                                Click to Select Rating (1 to 5 Stars)
+                            </label>
+
+                            <!-- Hidden input bound to Django Form -->
+                            {{ review_form.rating }}
+
+                            <!-- Dynamic 5 Star Container -->
+                            <div id="live-star-selector" class="d-flex justify-content-center align-items-center my-2">
+                                <!-- Star items rendered by static/js/reviews.js -->
+                            </div>
+
+                            <!-- Live Sentiment Tag -->
+                            <div id="rating-sentiment-text" class="rating-sentiment-badge">
+                                ⭐⭐⭐⭐⭐ 5 Stars - Outstanding! Highly Recommended!
+                            </div>
+                        </div>
+
+                        <!-- Review Text -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-secondary">Your Feedback</label>
+                            {{ review_form.review_text }}
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-balaji-amber w-100 py-2.5 rounded-pill fw-bold shadow-sm">
+                            <i class="bi bi-send-fill me-1"></i> Submit Live Review
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================================
+     Payment & Trust Guarantee Strip
+     ========================================================================= -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row g-4 text-center">
+            <div class="col-md-4">
+                <div class="card card-premium p-4 h-100">
+                    <div class="fs-1 text-warning mb-2">🕒</div>
+                    <h3 class="h5 fw-bold text-dark">24/7 Available</h3>
+                    <p class="text-secondary small mb-0">Any Thing Any Wear - 24 Hours Service across Vuyyuru, Vijayawada, Machilipatnam and All India.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-premium p-4 h-100">
+                    <div class="fs-1 text-warning mb-2">📑</div>
+                    <h3 class="h5 fw-bold text-dark">Official GST &amp; Approvals</h3>
+                    <p class="text-secondary small mb-0">GST Invoice Bills Available &amp; Bank Approval Bills provided for hassle-free claim reimbursements.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-premium p-4 h-100">
+                    <div class="fs-1 text-warning mb-2">💳</div>
+                    <h3 class="h5 fw-bold text-dark">Easy Online Payments</h3>
+                    <p class="text-secondary small mb-0">PhonePe, Google Pay, Paytm, UPI, and Direct Bank Transfers accepted seamlessly.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================================
+     Bottom Call-To-Action Banner
+     ========================================================================= -->
+<section class="py-5 bg-dark text-white text-center position-relative">
+    <div class="container py-4">
+        <h2 class="display-6 fw-bold text-warning mb-3">Planning to Shift Soon?</h2>
+        <p class="lead text-light opacity-85 mb-4" style="max-width: 650px; margin: auto;">
+            Book online in less than 2 minutes. Our team will pack with care, transport securely, and unpack at your new home.
+        </p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+            <a href="{% url 'quote' %}" class="btn btn-balaji-amber btn-lg rounded-pill px-5 py-3 fw-bold shadow">
+                Start Booking Your Order Now
+            </a>
+            <a href="tel:{{ PRIMARY_PHONE }}" class="btn btn-outline-light btn-lg rounded-pill px-5 py-3 fw-bold">
+                Call Mr. Kumar: {{ PRIMARY_PHONE }}
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<!-- Include Calculator and Review Scripts -->
+<script src="{% static 'js/calculator.js' %}"></script>
+<script src="{% static 'js/reviews.js' %}"></script>
+{% endblock %}

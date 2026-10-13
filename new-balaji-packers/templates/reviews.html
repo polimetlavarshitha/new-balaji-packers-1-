@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Customer Reviews & Ratings | {{ BUSINESS_NAME }}{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light">
+    <div class="container py-3">
+        <!-- Header -->
+        <div class="text-center mb-5" style="max-width: 750px; margin: auto;">
+            <span class="badge bg-warning text-dark fw-bold text-uppercase px-3 py-1 mb-2">
+                Real Customer Experiences
+            </span>
+            <h1 class="display-6 fw-bold text-dark">Verified Customer Ratings &amp; Reviews</h1>
+            <p class="text-muted">
+                See what clients from Vuyyuru, Vijayawada, and Machilipatnam say about their relocation experience with New Balaji Packers and Movers.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Left: Reviews List with Pagination -->
+            <div class="col-lg-8">
+                <div class="row g-3" id="reviews-live-feed">
+                    {% for r in page_obj %}
+                    <div class="col-md-6 mb-2">
+                        <div class="card card-premium h-100 p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div class="text-warning fs-5">
+                                    {% if r.rating == 5 %}★★★★★
+                                    {% elif r.rating == 4 %}★★★★☆
+                                    {% elif r.rating == 3 %}★★★☆☆
+                                    {% elif r.rating == 2 %}★★☆☆☆
+                                    {% else %}★☆☆☆☆{% endif %}
+                                </div>
+                                <span class="badge bg-light text-muted border small">{{ r.created_at|date:"M d, Y" }}</span>
+                            </div>
+                            <p class="fst-italic text-secondary small mb-3">
+                                “{{ r.review_text }}”
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                                <span class="fw-bold text-dark small">— {{ r.reviewer_name }}</span>
+                                <span class="badge bg-light text-dark small">📍 {{ r.city }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12">
+                        <p class="text-muted">No reviews yet. Share your experience below!</p>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Pagination -->
+                {% if page_obj.has_other_pages %}
+                <nav aria-label="Page navigation" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link text-dark" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                        </li>
+                        {% endif %}
+
+                        {% for num in page_obj.paginator.page_range %}
+                        <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+                            <a class="page-link {% if page_obj.number == num %}bg-warning border-warning text-dark fw-bold{% else %}text-dark{% endif %}" href="?page={{ num }}">{{ num }}</a>
+                        </li>
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link text-dark" href="?page={{ page_obj.next_page_number }}">Next</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% endif %}
+            </div>
+
+            <!-- Right: Submit Review Form (Interactive Star Rating Widget) -->
+            <div class="col-lg-4">
+                <div class="card card-premium p-4 shadow-sm border-warning sticky-top" style="top: 100px;">
+                    <h2 class="h5 fw-bold text-dark mb-1">Add Your Review</h2>
+                    <p class="text-muted small mb-3">Share your shifting experience with others.</p>
+
+                    <div id="review-alert-box"></div>
+
+                    <form id="customer-review-form" action="{% url 'submit_review' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-secondary">Your Name</label>
+                            {{ review_form.reviewer_name }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-secondary">Branch / Relocation City</label>
+                            {{ review_form.city }}
+                        </div>
+
+                        <div class="mb-3 p-3 bg-light rounded border text-center">
+                            <label class="form-label fw-bold text-dark d-block mb-1">
+                                Rating (Click Stars)
+                            </label>
+                            {{ review_form.rating }}
+                            <div id="live-star-selector" class="d-flex justify-content-center align-items-center my-2"></div>
+                            <div id="rating-sentiment-text" class="rating-sentiment-badge">
+                                ⭐⭐⭐⭐⭐ 5 Stars - Outstanding!
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-secondary">Your Review</label>
+                            {{ review_form.review_text }}
+                        </div>
+
+                        <button type="submit" class="btn btn-balaji-amber w-100 py-2.5 rounded-pill fw-bold shadow-sm">
+                            <i class="bi bi-send-fill me-1"></i> Submit Live Review
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/reviews.js' %}"></script>
+{% endblock %}

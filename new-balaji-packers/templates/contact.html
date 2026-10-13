@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us | {{ BUSINESS_NAME }} - Branches in Vuyyuru, Vijayawada & Machilipatnam{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light">
+    <div class="container py-3">
+        <!-- Header -->
+        <div class="text-center mb-5" style="max-width: 750px; margin: auto;">
+            <span class="badge bg-warning text-dark fw-bold text-uppercase px-3 py-1 mb-2">
+                24/7 Shifting Helpline
+            </span>
+            <h1 class="display-6 fw-bold text-dark">Contact New Balaji Packers and Movers</h1>
+            <p class="fs-5 text-warning fw-bold mb-1">Proprietor: {{ PROPRIETOR }}</p>
+            <p class="text-muted">
+                Reach out to our Head Office in Vuyyuru or our branches in Vijayawada &amp; Machilipatnam.
+            </p>
+        </div>
+
+        <!-- 3 Branch Cards Grid -->
+        <div class="row g-4 mb-5">
+            <!-- Vuyyuru Head Office -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-premium h-100 p-4 border-warning shadow-sm">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="badge bg-warning text-dark fw-bold px-2 py-1">MAIN BRANCH</span>
+                        <span class="text-muted small">Head Office</span>
+                    </div>
+                    <h2 class="h5 fw-bold text-dark mb-2">📍 Vuyyuru Hub</h2>
+                    <p class="text-secondary small mb-3 flex-grow-1">
+                        Thotlavallaru Road, Sai Baba Temple Back Side, Vuyyuru
+                    </p>
+                    <div class="pt-3 border-top d-flex flex-column gap-2">
+                        <a href="tel:9014331173" class="btn btn-balaji-amber btn-sm rounded-pill fw-bold">
+                            <i class="bi bi-telephone-fill me-1"></i> Call 9014331173
+                        </a>
+                        <a href="https://wa.me/919014331173?text=Hello%20Vuyyuru%20Head%20Office,%20I%20need%20moving%20assistance." target="_blank" rel="noopener noreferrer" class="btn btn-balaji-whatsapp btn-sm rounded-pill fw-bold">
+                            <i class="bi bi-whatsapp me-1"></i> WhatsApp Vuyyuru
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vijayawada Branch -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-premium h-100 p-4 shadow-sm">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="badge bg-secondary bg-opacity-25 text-dark small">BRANCH OFFICE</span>
+                        <span class="text-muted small">Auto Nagar Hub</span>
+                    </div>
+                    <h2 class="h5 fw-bold text-dark mb-2">📍 Vijayawada Hub</h2>
+                    <p class="text-secondary small mb-3 flex-grow-1">
+                        Opp. Nagarjuna Hospital, Kanuru, Auto Nagar, Vijayawada
+                    </p>
+                    <div class="pt-3 border-top d-flex flex-column gap-2">
+                        <a href="tel:9803558899" class="btn btn-outline-dark btn-sm rounded-pill fw-bold">
+                            <i class="bi bi-telephone-fill me-1"></i> Call 9803558899
+                        </a>
+                        <a href="https://wa.me/919803558899?text=Hello%20Vijayawada%20Branch,%20I%20need%20moving%20assistance." target="_blank" rel="noopener noreferrer" class="btn btn-balaji-whatsapp btn-sm rounded-pill fw-bold">
+                            <i class="bi bi-whatsapp me-1"></i> WhatsApp Vijayawada
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Machilipatnam Branch -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-premium h-100 p-4 shadow-sm">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="badge bg-secondary bg-opacity-25 text-dark small">BRANCH OFFICE</span>
+                        <span class="text-muted small">Coastal Hub</span>
+                    </div>
+                    <h2 class="h5 fw-bold text-dark mb-2">📍 Machilipatnam Hub</h2>
+                    <p class="text-secondary small mb-3 flex-grow-1">
+                        Housing Board Colony, Bypass Road, Machilipatnam
+                    </p>
+                    <div class="pt-3 border-top d-flex flex-column gap-2">
+                        <a href="tel:8099333910" class="btn btn-outline-dark btn-sm rounded-pill fw-bold">
+                            <i class="bi bi-telephone-fill me-1"></i> Call 8099333910
+                        </a>
+                        <a href="https://wa.me/918099333910?text=Hello%20Machilipatnam%20Branch,%20I%20need%20moving%20assistance." target="_blank" rel="noopener noreferrer" class="btn btn-balaji-whatsapp btn-sm rounded-pill fw-bold">
+                            <i class="bi bi-whatsapp me-1"></i> WhatsApp Machilipatnam
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Inquiry Form & Payment Info -->
+        <div class="row g-4">
+            <div class="col-lg-7">
+                <div class="card card-premium p-4 p-md-5 shadow-sm">
+                    <h2 class="h4 fw-bold text-dark mb-2">Send an Instant Inquiry</h2>
+                    <p class="text-muted small mb-4">Leave your details and Mr. Kumar will call you back within 15 minutes.</p>
+
+                    <form method="POST" action="{% url 'contact' %}">
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold small text-secondary">Your Name</label>
+                                <input type="text" name="name" required class="form-control form-control-lg shadow-sm" placeholder="Full Name">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold small text-secondary">Phone Number</label>
+                                <input type="tel" name="phone" required class="form-control form-control-lg shadow-sm" placeholder="10-digit mobile number">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fw-bold small text-secondary">Preferred Branch</label>
+                                <select name="city" class="form-select shadow-sm">
+                                    <option value="Vuyyuru" selected>Vuyyuru (Head Office)</option>
+                                    <option value="Vijayawada">Vijayawada Branch</option>
+                                    <option value="Machilipatnam">Machilipatnam Branch</option>
+                                    <option value="Other">Other Intercity / Regional</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fw-bold small text-secondary">Message / Shifting Details</label>
+                                <textarea name="message" rows="3" class="form-control shadow-sm" placeholder="Tell us what you are shifting and your expected date..."></textarea>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-balaji-amber rounded-pill px-5 py-2.5 fw-bold shadow-sm">
+                                    <i class="bi bi-send-fill me-1"></i> Send Inquiry Message
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Payment & Official Bills Box -->
+            <div class="col-lg-5">
+                <div class="card card-navy-dark p-4 p-md-5 h-100 d-flex flex-column justify-content-between shadow-sm">
+                    <div>
+                        <h2 class="h5 fw-bold text-warning mb-3">
+                            <i class="bi bi-shield-check me-2"></i> Official Invoicing &amp; Approvals
+                        </h2>
+                        <ul class="list-unstyled text-light opacity-90 small d-flex flex-column gap-3 mb-4">
+                            <li class="d-flex align-items-start gap-2">
+                                <i class="bi bi-check2-circle text-warning fs-5"></i>
+                                <span><strong>GST Invoice Bills:</strong> 100% compliant tax invoices provided for corporate employees and private business relocations.</span>
+                            </li>
+                            <li class="d-flex align-items-start gap-2">
+                                <i class="bi bi-check2-circle text-warning fs-5"></i>
+                                <span><strong>Bank Approval Bills:</strong> Accepted for bank loan and public/private company transfer allowance claims.</span>
+                            </li>
+                            <li class="d-flex align-items-start gap-2">
+                                <i class="bi bi-check2-circle text-warning fs-5"></i>
+                                <span><strong>Online Payments:</strong> PhonePe, Paytm, Google Pay, UPI &amp; Net Banking available.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="p-3 bg-secondary bg-opacity-25 rounded border border-secondary border-opacity-50 text-center">
+                        <span class="text-warning fw-bold small d-block mb-1">Direct Proprietor Line</span>
+                        <a href="tel:{{ PRIMARY_PHONE }}" class="text-white text-decoration-none fs-4 fw-bold">
+                            {{ PRIMARY_PHONE }}
+                        </a>
+                        <small class="text-light opacity-75 d-block mt-1">Available 24 Hours / 7 Days</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

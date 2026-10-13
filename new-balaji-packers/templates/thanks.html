@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Order Confirmed | {{ BUSINESS_NAME }}{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light">
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-7 col-md-9">
+                <div class="card card-premium p-4 p-md-5 text-center shadow-lg border-warning">
+                    <div class="mb-3">
+                        <span class="d-inline-flex align-items-center justify-content-center bg-success bg-opacity-10 text-success rounded-circle" style="width: 80px; height: 80px; font-size: 2.5rem;">
+                            <i class="bi bi-check-circle-fill"></i>
+                        </span>
+                    </div>
+
+                    <h1 class="display-6 fw-bold text-dark mb-2">Relocation Order Confirmed!</h1>
+                    <p class="lead text-secondary mb-4">
+                        Thank you, <strong class="text-dark">{{ order.customer_name|default:"Valued Customer" }}</strong>. We have securely registered your booking request.
+                    </p>
+
+                    {% if order %}
+                    <!-- Order Details Summary Card -->
+                    <div class="p-4 rounded bg-light border text-start mb-4">
+                        <div class="d-flex justify-content-between align-items-center pb-2 mb-3 border-bottom">
+                            <span class="text-secondary small fw-bold">BOOKING REFERENCE</span>
+                            <span class="badge bg-warning text-dark fs-6 px-3 py-1 font-monospace">{{ order.booking_ref }}</span>
+                        </div>
+
+                        <div class="row g-2 small">
+                            <div class="col-sm-6">
+                                <span class="text-muted d-block">Moving Route:</span>
+                                <strong class="text-dark fs-6">📍 {{ order.pickup_city }} → {{ order.drop_city }}</strong>
+                            </div>
+                            <div class="col-sm-6">
+                                <span class="text-muted d-block">Scheduled Date:</span>
+                                <strong class="text-dark fs-6">📅 {{ order.move_date|date:"F d, Y" }}</strong>
+                            </div>
+                            <div class="col-sm-6 mt-2">
+                                <span class="text-muted d-block">Contact Phone:</span>
+                                <strong class="text-dark">📞 {{ order.phone }}</strong>
+                            </div>
+                            <div class="col-sm-6 mt-2">
+                                <span class="text-muted d-block">Status:</span>
+                                <span class="badge bg-warning bg-opacity-25 text-dark fw-bold">{{ order.status }}</span>
+                            </div>
+                            {% if order.estimated_price %}
+                            <div class="col-12 mt-2 pt-2 border-top">
+                                <span class="text-muted d-block">Estimated Price:</span>
+                                <strong class="text-success fs-5">₹{{ order.estimated_price }}</strong>
+                            </div>
+                            {% endif %}
+                            {% if order.custom_items %}
+                            <div class="col-12 mt-2 pt-2 border-top">
+                                <span class="text-muted d-block">Custom Items Noted:</span>
+                                <span class="text-secondary fst-italic">{{ order.custom_items }}</span>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- What Happens Next -->
+                    <div class="p-3 bg-warning bg-opacity-10 border border-warning rounded text-start mb-4 small text-dark">
+                        <strong class="d-block mb-1"><i class="bi bi-clock-fill text-warning me-1"></i> What happens next?</strong>
+                        <span>Proprietor <strong>{{ PROPRIETOR }}</strong> or our local branch manager will call your phone shortly to finalize pickup timing, packing requirements, and vehicle allocation.</span>
+                    </div>
+
+                    <!-- Direct Followup Actions -->
+                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <a href="https://wa.me/919014331173?text=Hello%20Mr.%20Kumar,%20I%20have%20booked%20order%20{% if order %}{{ order.booking_ref }}{% endif %}.%20Please%20confirm%20details." target="_blank" rel="noopener noreferrer" class="btn btn-balaji-whatsapp rounded-pill px-4 py-2.5 fw-bold shadow-sm">
+                            <i class="bi bi-whatsapp me-2"></i> WhatsApp Order Confirmation
+                        </a>
+                        <a href="tel:{{ PRIMARY_PHONE }}" class="btn btn-balaji-amber rounded-pill px-4 py-2.5 fw-bold shadow-sm">
+                            <i class="bi bi-telephone-fill me-2"></i> Call Mr. Kumar: {{ PRIMARY_PHONE }}
+                        </a>
+                        <a href="{% url 'home' %}" class="btn btn-outline-secondary rounded-pill px-4 py-2.5 fw-bold">
+                            ← Return to Home
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

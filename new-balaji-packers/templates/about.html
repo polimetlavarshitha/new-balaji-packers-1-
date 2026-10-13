@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block title %}About Us | {{ BUSINESS_NAME }} - Head Office Vuyyuru{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light">
+    <div class="container py-3">
+        <!-- Header -->
+        <div class="text-center mb-5" style="max-width: 750px; margin: auto;">
+            <span class="badge bg-warning text-dark fw-bold text-uppercase px-3 py-1 mb-2">
+                Trusted Regional Relocation Partner
+            </span>
+            <h1 class="display-6 fw-bold text-dark">About New Balaji Packers and Movers</h1>
+            <p class="fs-5 text-warning fw-bold">{{ TAGLINE }}</p>
+            <p class="text-muted">
+                Proprietor: <strong class="text-dark">{{ PROPRIETOR }}</strong> | Serving Krishna District, Andhra Pradesh, and All India Routes.
+            </p>
+        </div>
+
+        <!-- Main Narrative & Branches Grid -->
+        <div class="row g-5 align-items-center mb-5">
+            <div class="col-lg-6">
+                <div class="card card-premium p-4 p-md-5">
+                    <h2 class="h4 fw-bold text-dark mb-3">Our Mission: Safe Moves, Happy Homes</h2>
+                    <p class="text-secondary leading-relaxed mb-3">
+                        Founded by <strong>{{ PROPRIETOR }}</strong>, <strong>{{ BUSINESS_NAME }}</strong> has grown into the most trusted moving and packing service across Vuyyuru, Vijayawada, and Machilipatnam.
+                    </p>
+                    <p class="text-secondary leading-relaxed mb-4">
+                        We understand that shifting your home or office is more than just moving boxes—it's relocating your life and valuable memories. That's why our experienced crews treat every piece of furniture, glassware, and electronic appliance with highest-grade protection and care.
+                    </p>
+
+                    <h3 class="h6 fw-bold text-dark mb-3">Core Pillars of Our Service:</h3>
+                    <div class="row g-2 mb-4 small">
+                        <div class="col-sm-6">
+                            <div class="p-2 border rounded bg-light">
+                                <i class="bi bi-shield-check text-warning me-1"></i> Multi-Layer Bubble Wrap
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="p-2 border rounded bg-light">
+                                <i class="bi bi-truck text-warning me-1"></i> Closed Container Vehicles
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="p-2 border rounded bg-light">
+                                <i class="bi bi-clock-history text-warning me-1"></i> 24/7 Available Any Time
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="p-2 border rounded bg-light">
+                                <i class="bi bi-receipt text-warning me-1"></i> GST &amp; Bank Bills
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="{% url 'quote' %}" class="btn btn-balaji-amber rounded-pill px-4 py-2.5 fw-bold shadow-sm">
+                        Start Booking Your Order <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Branch Details Column -->
+            <div class="col-lg-6">
+                <div class="card card-premium p-4 p-md-5 border-warning shadow-sm">
+                    <h2 class="h4 fw-bold text-dark mb-3 pb-2 border-bottom">
+                        <i class="bi bi-geo-alt-fill text-warning me-1"></i> Official Branch Network
+                    </h2>
+
+                    <div class="d-flex flex-column gap-3">
+                        <!-- Vuyyuru Head Office -->
+                        <div class="p-3 rounded bg-warning bg-opacity-10 border border-warning">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <strong class="fs-6 text-dark">📍 Vuyyuru Hub</strong>
+                                <span class="badge bg-warning text-dark fw-bold px-2 py-0.5">HEAD OFFICE / MAIN BRANCH</span>
+                            </div>
+                            <p class="small text-secondary mb-1">
+                                Thotlavallaru Road, Sai Baba Temple Back Side, Vuyyuru
+                            </p>
+                            <a href="tel:9014331173" class="text-warning text-decoration-none fw-bold small">
+                                📞 9014331173
+                            </a>
+                        </div>
+
+                        <!-- Vijayawada Branch -->
+                        <div class="p-3 rounded bg-light border">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <strong class="fs-6 text-dark">📍 Vijayawada Hub</strong>
+                                <span class="badge bg-secondary bg-opacity-25 text-dark small">BRANCH OFFICE</span>
+                            </div>
+                            <p class="small text-secondary mb-1">
+                                Opp. Nagarjuna Hospital, Kanuru, Auto Nagar, Vijayawada
+                            </p>
+                            <a href="tel:9803558899" class="text-warning text-decoration-none fw-bold small">
+                                📞 9803558899
+                            </a>
+                        </div>
+
+                        <!-- Machilipatnam Branch -->
+                        <div class="p-3 rounded bg-light border">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <strong class="fs-6 text-dark">📍 Machilipatnam Hub</strong>
+                                <span class="badge bg-secondary bg-opacity-25 text-dark small">BRANCH OFFICE</span>
+                            </div>
+                            <p class="small text-secondary mb-1">
+                                Housing Board Colony, Bypass Road, Machilipatnam
+                            </p>
+                            <a href="tel:8099333910" class="text-warning text-decoration-none fw-bold small">
+                                📞 8099333910
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pt-3 border-top small text-muted">
+                        Proprietor Direct Helpline: <strong class="text-dark">9014331173 | 9803558899 | 8099333910</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trust Stats Card -->
+        <div class="card card-navy-dark p-4 p-md-5 text-center shadow-lg">
+            <div class="row g-4">
+                <div class="col-md-3 col-6">
+                    <div class="fs-1 text-warning fw-bold">100%</div>
+                    <div class="text-light small">Safe Shifting Guarantee</div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="fs-1 text-warning fw-bold">3 Hubs</div>
+                    <div class="text-light small">Vuyyuru, Vijayawada &amp; Machilipatnam</div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="fs-1 text-warning fw-bold">24/7</div>
+                    <div class="text-light small">Operating Hours</div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="fs-1 text-warning fw-bold">GST</div>
+                    <div class="text-light small">Approved Billing Available</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
