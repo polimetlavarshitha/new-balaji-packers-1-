@@ -2,6 +2,7 @@ services:
   - type: web
     name: new-balaji-packers
     runtime: python
+    rootDir: new-balaji-packers
     buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --no-input && python manage.py migrate"
     startCommand: "gunicorn balaji_packers.wsgi:application"
     envVars:
